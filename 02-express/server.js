@@ -1,6 +1,7 @@
 
 
 const express = require('express');
+const path = require('path');
 const app = express();
 
 //  Respond to GET requests for '/'
@@ -13,19 +14,17 @@ app.get('/', (req, res) => {
 });
 
 //  Respond for get requests for '/nom'
-app.get('/nom', (req, res) => {
+app.get('/index', (req, res) => {
     console.log(req.method, req.url);
-    res.send('Moi messi olsson silva')
+    res.sendFile(path.join(__dirname,'/pages/index.html'));
 });
 
-app.get('/api/nom', (req, res) => {
-    res.send({msg: 'kegen är kingen'});
+app.get('/nom', (req, res) => {
+    res.sendFile(path.join(__dirname,'/pages/nom.html'));
 });
 
 app.get('/about', (req, res) => {
-    console.log(req.method, req.url);
-    res.write('<h1>about</h1>');
-    res.write('<p>this is the about page</p>');
+   res.sendFile(path.join(__dirname,'/pages/about.html'));
 });
 
 //  Start listening for incoming requests on port 3000
