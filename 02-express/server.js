@@ -5,6 +5,11 @@ const path = require('path');
 const app = express();
 const oneliners = require('./data/oneliners.json');
 
+// inject logic to al incoming requests
+app.use((req, res, next)    => {
+    console.log(`Incoming ${req.method} request for ${req.url}`);
+    next();
+});
 //  Respond to GET requests for '/'
 app.get('/', (req, res) => {
     //  req = information about the incoming request
@@ -14,9 +19,10 @@ app.get('/', (req, res) => {
     res.send('Moi kegen Messi!');
 });
 
-app.get('jokes', (req, res) => {
+app.get('/jokes', (req, res) => {
     const i = Math.floor( Math.random() * oneliners.length);
     const oneliner = oneliners[i];
+    // const oneliner = _.sample(oneliners);
     res.send(oneliner);
 });
 
@@ -34,6 +40,7 @@ app.get('jokes', (req, res) => {
 //    res.sendFile(path.join(__dirname,'/pages/about.html'));
 // });
 
+// app.use(express.static());
 
 
 //  Start listening for incoming requests on port 3000
