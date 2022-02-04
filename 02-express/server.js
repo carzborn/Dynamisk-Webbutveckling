@@ -3,6 +3,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const oneliners = require('./data/oneliners.json');
 
 //  Respond to GET requests for '/'
 app.get('/', (req, res) => {
@@ -13,19 +14,25 @@ app.get('/', (req, res) => {
     res.send('Moi kegen Messi!');
 });
 
+app.get('jokes', (req, res) => {
+    const i = Math.floor( Math.random() * oneliners.length);
+    const oneliner = oneliners[i];
+    res.send(oneliner);
+});
+
 //  Respond for get requests for '/nom'
-app.get('/index', (req, res) => {
-    console.log(req.method, req.url);
-    res.sendFile(path.join(__dirname,'/pages/index.html'));
-});
+// app.get('/index', (req, res) => {
+//     console.log(req.method, req.url);
+//     res.sendFile(path.join(__dirname,'/pages/index.html'));
+// });
 
-app.get('/nom', (req, res) => {
-    res.sendFile(path.join(__dirname,'/pages/nom.html'));
-});
+// app.get('/nom', (req, res) => {
+//     res.sendFile(path.join(__dirname,'/pages/nom.html'));
+// });
 
-app.get('/about', (req, res) => {
-   res.sendFile(path.join(__dirname,'/pages/about.html'));
-});
+// app.get('/about', (req, res) => {
+//    res.sendFile(path.join(__dirname,'/pages/about.html'));
+// });
 
 
 
