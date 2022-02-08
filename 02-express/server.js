@@ -5,6 +5,7 @@ const path = require('path');
 const lodash = require('lodash');
 const morgan = require('morgan');
 const oneliners = require('./data/oneliners.json');
+const users = require('./data/users.json');
 
 const app = express();
 
@@ -24,10 +25,13 @@ app.use(morgan('dev'));
 app.get('/', (req, res) => {
     //  req = information about the incoming request
     //  res = method to send a answer to the request
-
-    console.log(req.method, req.url);
-    res.send('Moi kegen Messi!');
+    res.render('index', { users });
 });
+
+app.get('/users/:userId', (req, res) => {
+    res.render('user', {users});
+    // res.send(`would show user with id ${req.params.userId}`);
+})
 
 app.get('/jokes', (req, res) => {
     // const i = Math.floor( Math.random() * oneliners.length);
