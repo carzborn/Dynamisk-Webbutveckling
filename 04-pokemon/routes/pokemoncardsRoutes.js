@@ -10,8 +10,6 @@ router.post('/', pokemoncardsController.create);
 
 router.put('/:id', pokemoncardsController.update);
 
-router.delete('/:id', (req, res) => {
-    res.send('Delete ' + req.params.id + ' not implemented')
-});
+router.delete('/:id', pokemoncardsController.remove);
 
 module.exports = router;

@@ -83,8 +83,35 @@ const update = async(req, res) => {
 
 };
 
+const remove = async(req,res) =>{
+    try {
+        let card = await  PokemonCards.where( { "id" : req.params.id} ).fetch(  {require: true}  );
+
+        card = await card.set(req.body).destroy();
+
+        return res.status(200).send(
+            {
+                success: true,
+                data: {
+                    card
+                }
+            }
+        )
+
+    } catch (error) {
+        return res.status(500).send(
+            {
+                success: false,
+                 data: err.message
+            }
+        );
+    }
+};
+
+
 module.exports ={
     read,
     create,
-    update
+    update,
+    remove
 }
